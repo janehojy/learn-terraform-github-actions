@@ -15,8 +15,8 @@ jobs:
         with:
           url: https://jane-vault.vault.9c357452-e886-44d5-9426-7eee3109c75e.aws.hashicorp.cloud:8200
           method: approle
-          roleId: c813d5e3-b6f8-a7d0-195a-5c83c44f7a4a
-          secretId: a7d59479-2a7a-db79-00eb-9178c14cf0c8
+          roleId: ${{ secrets.ROLE_ID }}
+          secretId: ${{ secrets.SECRET_ID }}
           namespace: admin
           secrets: |
             kv/data/aws AWS_ACCESS_KEY_ID | AWS_ACCESS_KEY_ID ;
