@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
+        id: secrets
         with:
           url: https://jane-vault.vault.9c357452-e886-44d5-9426-7eee3109c75e.aws.hashicorp.cloud:8200
           token: ${{ secrets.VAULT_TOKEN }}
@@ -48,7 +49,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: echo $AWS_ACCESS_KEY_ID && terraform plan -no-color
         continue-on-error: true
 
       - uses: actions/github-script@0.9.0
