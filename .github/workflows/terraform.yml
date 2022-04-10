@@ -10,6 +10,9 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-18.04
+    env: 
+      AWS_EC2_METADATA_DISABLED: true
+      AWS_DEFAULT_REGION: ap-southeast-1
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
@@ -29,12 +32,6 @@ jobs:
         
       - name: echo session expiration
         run: echo '${{ steps.secrets.outputs.AWS_SESSION_TOKEN }}'
-        
-      - name: test env creds
-        run: aws s3 ls
-        env: 
-          AWS_EC2_METADATA_DISABLED: true
-          AWS_DEFAULT_REGION: ap-southeast-1
       
       - name: Checkout
         uses: actions/checkout@v2
