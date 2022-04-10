@@ -28,7 +28,7 @@ jobs:
         run: echo $AWS_ACCESS_KEY_ID
         
       - name: echo session expiration
-        run: echo $AWS_SESSION_EXPIRATION
+        run: echo '${{ steps.secrets.outputs.AWS_SESSION_TOKEN }}'
         
       - name: test env creds
         run: aws s3 ls
