@@ -9,7 +9,7 @@ on:
 jobs:
   terraform:
     name: "Terraform"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
