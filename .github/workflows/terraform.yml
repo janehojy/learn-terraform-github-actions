@@ -29,6 +29,9 @@ jobs:
         
       - name: echo session expiration
         run: echo $AWS_SESSION_EXPIRATION
+        
+      - name: test env creds
+        run: aws s3 ls
       
       - name: Checkout
         uses: actions/checkout@v2
