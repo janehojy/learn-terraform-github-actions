@@ -7,27 +7,23 @@ on:
   pull_request:
 
 jobs:
-  retrieve-secret:
-  runs-on: ubuntu-latest
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-18.04
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
+        id: secrets
         with:
           url: https://jane-vault.vault.9c357452-e886-44d5-9426-7eee3109c75e.aws.hashicorp.cloud:8200
-          method: approle
-          roleId: c813d5e3-b6f8-a7d0-195a-5c83c44f7a4a
-          secretId: a7d59479-2a7a-db79-00eb-9178c14cf0c8
+          token: ${{ secrets.VAULT_TOKEN }}
           namespace: admin
           secrets: |
             kv/data/aws AWS_ACCESS_KEY_ID | AWS_ACCESS_KEY_ID ;
-            kv/data/aws AWS_SECRET_ACCESS_KEY | AWS_SECRET_ACCESS_KEY
-        env: 
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  terraform:
-    name: "Terraform"
-    runs-on: ubuntu-latest
-    steps:
+            kv/data/aws AWS_SECRET_ACCESS_KEY | AWS_SECRET_ACCESS_KEY ;
+            kv/data/aws AWS_SESSION_EXPIRATION | AWS_SESSION_EXPIRATION;
+            kv/data/aws AWS_SESSION_TOKEN | AWS_SESSION_TOKEN
+      
       - name: Checkout
         uses: actions/checkout@v2
 
