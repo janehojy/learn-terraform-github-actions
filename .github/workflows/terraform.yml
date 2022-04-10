@@ -26,27 +26,9 @@ jobs:
             kv/data/aws AWS_SECRET_ACCESS_KEY | AWS_SECRET_ACCESS_KEY ;
             kv/data/aws AWS_SESSION_EXPIRATION | AWS_SESSION_EXPIRATION;
             kv/data/aws AWS_SESSION_TOKEN | AWS_SESSION_TOKEN
-
-      - name: Echo env
-        run: echo $AWS_ACCESS_KEY_ID
-        
-      - name: echo session expiration
-        run: echo '${{ steps.secrets.outputs.AWS_SESSION_TOKEN }}'
       
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: make aws dir
-        run: mkdir ~/.aws/  
-        
-      - name: touch aws creds file
-        run: touch ~/.aws/credentials
-        
-      - name: Write AWS creds file
-        run: echo "[default]" >> ~/.aws/credentials && echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials && echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials && echo "aws_session_token = $AWS_SESSION_TOKEN" >> ~/.aws/credentials
-
-      - name: echo creds file
-        run: cat ~/.aws/credentials
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
