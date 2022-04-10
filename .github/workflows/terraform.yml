@@ -20,10 +20,15 @@ jobs:
           namespace: admin
           secrets: |
             kv/data/aws AWS_ACCESS_KEY_ID | AWS_ACCESS_KEY_ID ;
-            kv/data/aws AWS_SECRET_ACCESS_KEY | AWS_SECRET_ACCESS_KEY
+            kv/data/aws AWS_SECRET_ACCESS_KEY | AWS_SECRET_ACCESS_KEY ;
+            kv/data/aws AWS_SESSION_EXPIRATION | AWS_SESSION_EXPIRATION;
+            kv/data/aws AWS_SESSION_TOKEN | AWS_SESSION_TOKEN
 
       - name: Echo env
         run: echo $AWS_ACCESS_KEY_ID
+        
+      - name: echo session expiration
+        run: echo $AWS_SESSION_EXPIRATION
       
       - name: Checkout
         uses: actions/checkout@v2
