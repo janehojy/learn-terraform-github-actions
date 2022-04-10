@@ -34,6 +34,7 @@ jobs:
         run: aws s3 ls
         env: 
           AWS_EC2_METADATA_DISABLED: true
+          AWS_DEFAULT_REGION: ap-southeast-1
       
       - name: Checkout
         uses: actions/checkout@v2
